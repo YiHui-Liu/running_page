@@ -1,7 +1,7 @@
 import * as mapboxPolyline from '@mapbox/polyline';
 import { WebMercatorViewport } from 'react-map-gl';
 import { chinaGeojson } from '../static/run_countries';
-import { MUNICIPALITY_CITIES_ARR, RUN_TITLES } from './const';
+import { MUNICIPALITY_CITIES_ARR, RIDE_TITLES, RUN_TITLES } from './const';
 
 const titleForShow = (run) => {
   const date = run.start_date_local.slice(0, 11);
@@ -100,23 +100,27 @@ const geoJsonForMap = () => chinaGeojson;
 const titleForRun = (run) => {
   const runDistance = run.distance / 1000;
   const runHour = +run.start_date_local.slice(11, 13);
-  if (runDistance > 20 && runDistance < 40) {
+  if (runDistance > 20 && runDistance < 40 && run.type=='run') {
     return RUN_TITLES.HALF_MARATHON_RUN_TITLE;
   }
-  if (runDistance >= 40) {
+  if (runDistance >= 40 && run.type=='run') {
     return RUN_TITLES.FULL_MARATHON_RUN_TITLE;
   }
   if (runHour >= 0 && runHour <= 8) {
-    return RUN_TITLES.MORNING_RUN_TITLE;
+    if (run.type=='run')   return RUN_TITLES.MORNING_RUN_TITLE;
+    else   return RIDE_TITLES.MORNING_RIDE_TITLE;
   }
   if (runHour > 8 && runHour <= 12) {
-    return RUN_TITLES.LUNCH_RUN_TITLE;
+    if (run.type=='run')   return RUN_TITLES.LUNCH_RUN_TITLE;
+    else   return RIDE_TITLES.LUNCH_RIDE_TITLE;
   }
   if (runHour > 12 && runHour <= 18) {
-    return RUN_TITLES.AFTERNOON_RUN_TITLE;
+    if (run.type=='run')   return RUN_TITLES.AFTERNOON_RUN_TITLE;
+    else   return RIDE_TITLES.AFTERNOON_RIDE_TITLE;
   }
   if (runHour > 18 && runHour <= 21) {
-    return RUN_TITLES.EVENING_RUN_TITLE;
+    if (run.type=='run')   return RUN_TITLES.EVENING_RUN_TITLE;
+    else   return RIDE_TITLES.EVENING_RIDE_TITLE;
   }
   return RUN_TITLES.NIGHT_RUN_TITLE;
 };

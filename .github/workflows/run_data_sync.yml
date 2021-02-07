@@ -22,8 +22,8 @@ env:
   # please change to your own config.
   RUN_TYPE: keep # support runtastic/strava/nike/garmin/garmin_cn/keep/only_gpx/nike_to_strava, Please change the 'pass' it to your own
   ATHLETE: liuyihui
-  TITLE: fox's Running
-  TITLE_GRID: Over 3km Runs
+  TITLE: fox's Exercising
+  TITLE_GRID: Over 3km Runs or Rides
   GITHUB_NAME: YiHui-Liu
   GITHUB_EMAIL: liuyihui02@gmail.com
 

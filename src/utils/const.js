@@ -13,7 +13,7 @@ const MUNICIPALITY_CITIES_ARR = [
 // IF you outside China please make sure IS_CHINESE = false
 const IS_CHINESE = true;
 const CHINESE_INFO_MESSAGE = (yearLength, year) =>
-  `我用 App 记录自己跑步 ${yearLength} 年了，下面列表展示的是 ${year} 的数据`;
+  `我用 App 记录自己运动 ${yearLength} 年了，下面列表展示的是 ${year} 的数据`;
 const ENGLISH_INFO_MESSAGE = (yearLength, year) =>
   `Running Journey with ${yearLength} Years, the table shows year ${year} data`;
 
@@ -26,6 +26,12 @@ const AFTERNOON_RUN_TITLE = IS_CHINESE ? '午后跑步' : 'Afternoon Run';
 const EVENING_RUN_TITLE = IS_CHINESE ? '傍晚跑步' : 'Evening Run';
 const NIGHT_RUN_TITLE = IS_CHINESE ? '夜晚跑步' : 'Night Run';
 
+const MORNING_RIDE_TITLE = IS_CHINESE ? '清晨骑行' : 'Morning RIDE';
+const LUNCH_RIDE_TITLE = IS_CHINESE ? '上午骑行' : 'Lunch RIDE';
+const AFTERNOON_RIDE_TITLE = IS_CHINESE ? '午后骑行' : 'Afternoon RIDE';
+const EVENING_RIDE_TITLE = IS_CHINESE ? '傍晚骑行' : 'Evening RIDE';
+const NIGHT_RIDE_TITLE = IS_CHINESE ? '夜晚骑行' : 'Night RIDE';
+
 const RUN_TITLES = {
   FULL_MARATHON_RUN_TITLE,
   HALF_MARATHON_RUN_TITLE,
@@ -36,12 +42,21 @@ const RUN_TITLES = {
   NIGHT_RUN_TITLE,
 };
 
+const RIDE_TITLES = {
+  MORNING_RIDE_TITLE,
+  LUNCH_RIDE_TITLE,
+  AFTERNOON_RIDE_TITLE,
+  EVENING_RIDE_TITLE,
+  NIGHT_RIDE_TITLE,
+};
+
 export {
   MAPBOX_TOKEN,
   MUNICIPALITY_CITIES_ARR,
   IS_CHINESE,
   INFO_MESSAGE,
   RUN_TITLES,
+  RIDE_TITLES
 };
 
 export const AVATAR = 'https://img.foolishfox.cn/images/static/avatar.jpg'; // Temp avatar

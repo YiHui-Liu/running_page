@@ -10,10 +10,10 @@ const LocationStat = ({ changeYear, changeCity, changeTitle }) => (
       <p>
         我跑过了一些地方，希望随着时间的推移，地图点亮的地方越来越多.
         <br />
-        不要停下来，不要停下奔跑的脚步.
+        不要停下来，不要停下追寻的脚步.
         <br />
         <br />
-        Yesterday you said tomorrow.
+        Life lies in motion.
       </p>
     </section>
     <hr color="red" />

@@ -24,9 +24,18 @@ run_map = namedtuple("polyline", "summary_polyline")
 
 # need to test
 LOGIN_API = "https://api.gotokeep.com/v1.1/users/login"
-RUN_DATA_API = "https://api.gotokeep.com/pd/v3/stats/detail?dateUnit=all&type=running&lastDate={last_date}"
-RUN_LOG_API = "https://api.gotokeep.com/pd/v3/runninglog/{run_id}"
-
+API_LIST = {
+    'run' : [
+        "https://api.gotokeep.com/pd/v3/stats/detail?dateUnit=all&type=running&lastDate={last_date}",
+        "https://api.gotokeep.com/pd/v3/runninglog/{run_id}"
+    ],
+    'ride' : [
+        "https://api.gotokeep.com/pd/v3/stats/detail?dateUnit=all&type=cycling&lastDate={last_date}",
+        "https://api.gotokeep.com/pd/v3/cyclinglog/{run_id}"
+    ]
+}
+LOG_API  = ''
+DATA_API = ''
 
 def login(session, mobile, passowrd):
     headers = {
@@ -45,7 +54,7 @@ def get_to_download_runs_ids(session, headers):
     last_date = 0
     result = []
     while 1:
-        r = session.get(RUN_DATA_API.format(last_date=last_date), headers=headers)
+        r = session.get(DATA_API.format(last_date=last_date), headers=headers)
         if r.ok:
             run_logs = r.json()["data"]["records"]
             for i in run_logs:
@@ -60,7 +69,7 @@ def get_to_download_runs_ids(session, headers):
 
 
 def get_single_run_data(session, headers, run_id):
-    r = session.get(RUN_LOG_API.format(run_id=run_id), headers=headers)
+    r = session.get(LOG_API.format(run_id=run_id), headers=headers)
     if r.ok:
         return r.json()
 
@@ -76,7 +85,7 @@ def adjust_time(time, tz_name):
     return time + tc_offset
 
 
-def parse_raw_data_to_nametuple(run_data, old_gpx_ids, with_download_gpx=False):
+def parse_raw_data_to_nametuple(run_data, old_gpx_ids, aType, with_download_gpx=False):
     run_data = run_data["data"]
     run_points_data = []
 
@@ -111,9 +120,9 @@ def parse_raw_data_to_nametuple(run_data, old_gpx_ids, with_download_gpx=False):
     end_local = adjust_time(end, tz_name)
     d = {
         "id": int(keep_id),
-        "name": "run from keep",
+        "name": aType+" from keep",
         # future to support others workout now only for run
-        "type": "Run",
+        "type": aType,
         "start_date": datetime.strftime(start_date, "%Y-%m-%d %H:%M:%S"),
         "end": datetime.strftime(end, "%Y-%m-%d %H:%M:%S"),
         "start_date_local": datetime.strftime(start_date_local, "%Y-%m-%d %H:%M:%S"),
@@ -133,23 +142,21 @@ def parse_raw_data_to_nametuple(run_data, old_gpx_ids, with_download_gpx=False):
     return namedtuple("x", d.keys())(*d.values())
 
 
-def get_all_keep_tracks(email, password, old_tracks_ids, with_download_gpx=False):
+def get_all_keep_tracks(session, headers, email, password, old_tracks_ids, aType, with_download_gpx=False):
     if with_download_gpx and not os.path.exists(GPX_FOLDER):
         os.mkdir(GPX_FOLDER)
-    s = requests.Session()
-    s, headers = login(s, email, password)
-    runs = get_to_download_runs_ids(s, headers)
+    runs = get_to_download_runs_ids(session, headers)
     runs = [run for run in runs if run.split("_")[1] not in old_tracks_ids]
-    print(f"{len(runs)} new keep runs to generate")
+    print(f"{len(runs)} new keep "+aType +"s to generate")
     tracks = []
     old_gpx_ids = os.listdir(GPX_FOLDER)
     old_gpx_ids = [i.split(".")[0] for i in old_gpx_ids if not i.startswith(".")]
     for run in runs:
         print(f"parsing keep id {run}")
         try:
-            run_data = get_single_run_data(s, headers, run)
+            run_data = get_single_run_data(session, headers, run)
             track = parse_raw_data_to_nametuple(
-                run_data, old_gpx_ids, with_download_gpx
+                run_data, old_gpx_ids, aType, with_download_gpx
             )
             tracks.append(track)
         except Exception as e:
@@ -199,9 +206,17 @@ def download_keep_gpx(gpx_data, keep_id):
 
 
 def run_keep_sync(email, password, with_download_gpx=False):
+    global LOG_API, DATA_API
+    s = requests.Session()
+    s, h = login(s, email, password)
+
     generator = Generator(SQL_FILE)
     old_tracks_ids = generator.get_old_tracks_ids()
-    new_tracks = get_all_keep_tracks(email, password, old_tracks_ids, with_download_gpx)
+    new_tracks = []
+    for key in API_LIST :
+        DATA_API    = API_LIST[key][0]
+        LOG_API     = API_LIST[key][1]
+        new_tracks += get_all_keep_tracks(s, h, email, password, old_tracks_ids, aType=key, with_download_gpx=with_download_gpx)
     generator.sync_from_app(new_tracks)
 
     activities_list = generator.load()

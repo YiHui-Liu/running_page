@@ -6,7 +6,7 @@ import useActivities from 'src/hooks/useActivities';
 import styles from './style.module.scss';
 
 const YearStat = ({ year, onClick }) => {
-  let { activities: runs, years } = useActivities();
+  let { activities: runs, activities: rides, years } = useActivities();
   // for hover
   const [hovered, eventHandlers] = useHover();
   // lazy Component
@@ -15,9 +15,11 @@ const YearStat = ({ year, onClick }) => {
       default: () => <div />,
     }))
   );
-
+  runs = runs.filter((run) => run.type === 'run');
+  rides = rides.filter((ride) => ride.type === 'ride');
   if (years.includes(year)) {
     runs = runs.filter((run) => run.start_date_local.slice(0, 4) === year);
+    rides = rides.filter((ride) => ride.start_date_local.slice(0, 4) === year);
   }
   let sumDistance = 0;
   let streak = 0;
@@ -56,6 +58,7 @@ const YearStat = ({ year, onClick }) => {
       <section>
         <Stat value={year} description=" Journey" />
         <Stat value={runs.length} description=" Runs" />
+        <Stat value={rides.length} description=" Rides" />
         <Stat value={sumDistance} description=" KM" />
         <Stat value={avgPace} description=" Avg Pace" />
         <Stat
