@@ -17,10 +17,12 @@ const YearStat = ({ year, onClick }) => {
   );
   runs = runs.filter((run) => run.type === 'run');
   rides = rides.filter((ride) => ride.type === 'ride');
+
   if (years.includes(year)) {
     runs = runs.filter((run) => run.start_date_local.slice(0, 4) === year);
     rides = rides.filter((ride) => ride.start_date_local.slice(0, 4) === year);
   }
+
   let sumDistance = 0;
   let streak = 0;
   let pace = 0;
@@ -43,6 +45,10 @@ const YearStat = ({ year, onClick }) => {
       streak = Math.max(streak, run.streak);
     }
   });
+  rides.forEach((ride) => {
+    sumDistance += ride.distance || 0;
+  });
+
   sumDistance = (sumDistance / 1000.0).toFixed(1);
   const avgPace = formatPace(pace / (runs.length - paceNullCount));
   const hasHeartRate = !(heartRate === 0);

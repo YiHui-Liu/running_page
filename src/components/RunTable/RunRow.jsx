@@ -25,7 +25,7 @@ const RunRow = ({ runs, run, locateActivity, runIndex, setRunIndex }) => {
 
   return (
     <tr
-      className={styles.runRow}
+      className={run.type=='run' ? styles.runRowrun : styles.runRowride}
       key={run.start_date_local}
       onClick={(e) => {
         handleClick(e, runs, run);
