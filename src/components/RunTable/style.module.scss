@@ -32,40 +32,6 @@
   }
 }
 
-.runRowrun {
-  td {
-    padding: 0.5rem;
-    border: 0;
-    text-align: right;
-    color: rgb(224, 237, 94);
-
-    &:first-child {
-      text-align: left;
-    }
-  }
-
-  &:hover {
-    background-color: lighten($dark, 3%);
-  }
-}
-
-.runRowride {
-  td {
-    padding: 0.5rem;
-    border: 0;
-    text-align: right;
-    color: rgb(51, 201, 235);
-
-    &:first-child {
-      text-align: left;
-    }
-  }
-
-  &:hover {
-    background-color: lighten($dark, 3%);
-  }
-}
-
 .tableContainer {
   width: 100%;
   overflow-x: scroll;

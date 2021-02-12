@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatPace, titleForRun } from 'src/utils/utils';
-import { MAIN_COLOR } from 'src/utils/const';
+import { RUNC, RIDEC } from 'src/utils/const';
 import styles from './style.module.scss';
 
 const RunRow = ({ runs, run, locateActivity, runIndex, setRunIndex }) => {
@@ -18,19 +18,20 @@ const RunRow = ({ runs, run, locateActivity, runIndex, setRunIndex }) => {
 
     const elements = document.getElementsByClassName(styles.runRow);
     if (runIndex !== -1 && elementIndex !== runIndex) {
-      elements[runIndex].style.color = MAIN_COLOR;
+      elements[runIndex].style.color = run.type=='run' ? RUNC:RIDEC;
     }
     setRunIndex(elementIndex);
   };
 
   return (
     <tr
-      className={run.type=='run' ? styles.runRowrun : styles.runRowride}
+      className={styles.runRow}
       key={run.start_date_local}
       onClick={(e) => {
         handleClick(e, runs, run);
         locateActivity(run);
       }}
+      style={run.type=='run' ? {color: RUNC}:{color: RIDEC}}
     >
       <td>{titleForRun(run)}</td>
       <td>{distance}</td>

@@ -67,4 +67,6 @@ export const NAVS = [
 
 const nike = 'rgb(224,237,94)';
 export const MAIN_COLOR = nike;
+export const RUNC = 'rgb(224, 237, 94)';
+export const RIDEC = 'rgb(51, 201, 235)';
 export const PROVINCE_FILL_COLOR = '#47b8e0';
