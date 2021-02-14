@@ -18,7 +18,7 @@ const RunRow = ({ runs, run, locateActivity, runIndex, setRunIndex }) => {
 
     const elements = document.getElementsByClassName(styles.runRow);
     if (runIndex !== -1 && elementIndex !== runIndex) {
-      elements[runIndex].style.color = run.type=='run' ? RUNC:RIDEC;
+      elements[runIndex].style.color = runs[runIndex].type=='run' ? RUNC:RIDEC;
     }
     setRunIndex(elementIndex);
   };

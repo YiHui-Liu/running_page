@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import RunRow from './RunRow';
 import styles from './style.module.scss';
 import { sortDateFunc, sortDateFuncReverse } from 'src/utils/utils';
-import { MAIN_COLOR } from 'src/utils/const';
+import { RUNC, RIDEC } from 'src/utils/const';
 
 const RunTable = ({
   runs,
@@ -41,7 +41,7 @@ const RunTable = ({
     const f = sortFuncMap.get(e.target.innerHTML);
     if (runIndex !== -1) {
       const el = document.getElementsByClassName(styles.runRow);
-      el[runIndex].style.color = MAIN_COLOR;
+      el[runIndex].style.color = runs[runIndex].type=='run' ? RUNC:RIDEC;
     }
     setActivity(runs.sort(f));
   };
