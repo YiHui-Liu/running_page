@@ -5,7 +5,7 @@ import { sortDateFunc, sortDateFuncReverse } from 'src/utils/utils';
 import { RUNC, RIDEC } from 'src/utils/const';
 
 const RunTable = ({
-  runs,
+  works,
   locateActivity,
   setActivity,
   runIndex,
@@ -41,9 +41,9 @@ const RunTable = ({
     const f = sortFuncMap.get(e.target.innerHTML);
     if (runIndex !== -1) {
       const el = document.getElementsByClassName(styles.runRow);
-      el[runIndex].style.color = runs[runIndex].type=='run' ? RUNC:RIDEC;
+      el[runIndex].style.color = works[runIndex].type=='run' ? RUNC:RIDEC;
     }
-    setActivity(runs.sort(f));
+    setActivity(works.sort(f));
   };
 
   return (
@@ -60,11 +60,11 @@ const RunTable = ({
           </tr>
         </thead>
         <tbody>
-          {runs.map((run) => (
+          {works.map((work) => (
             <RunRow
-              runs={runs}
-              run={run}
-              key={run.run_id}
+              works={works}
+              work={work}
+              key={work.run_id}
               locateActivity={locateActivity}
               runIndex={runIndex}
               setRunIndex={setRunIndex}

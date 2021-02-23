@@ -78,10 +78,10 @@ const RunMap = ({
           filter={filterProvinces}
         />
         <Layer
-          id="runs2"
+          id="works"
           type="line"
           paint={{
-            'line-color': MAIN_COLOR,
+            'line-color': title.indexOf('run')!=-1 ? MAIN_COLOR:'rgb(0,255,0)',
             'line-width': isBigMap ? 1 : 2,
           }}
           layout={{

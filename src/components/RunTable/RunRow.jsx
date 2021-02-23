@@ -3,22 +3,22 @@ import { formatPace, titleForRun } from 'src/utils/utils';
 import { RUNC, RIDEC } from 'src/utils/const';
 import styles from './style.module.scss';
 
-const RunRow = ({ runs, run, locateActivity, runIndex, setRunIndex }) => {
-  const distance = (run.distance / 1000.0).toFixed(1);
-  const pace = run.average_speed;
+const RunRow = ({ works, work, locateActivity, runIndex, setRunIndex }) => {
+  const distance = (work.distance / 1000.0).toFixed(1);
+  const pace = work.average_speed;
 
   const paceParts = pace ? formatPace(pace) : null;
 
-  const heartRate = run.average_heartrate;
+  const heartRate = work.average_heartrate;
 
   // change click color
-  const handleClick = (e, runs, run) => {
-    const elementIndex = runs.indexOf(run);
+  const handleClick = (e, works, work) => {
+    const elementIndex = works.indexOf(work);
     e.target.parentElement.style.color = 'red';
 
     const elements = document.getElementsByClassName(styles.runRow);
     if (runIndex !== -1 && elementIndex !== runIndex) {
-      elements[runIndex].style.color = runs[runIndex].type=='run' ? RUNC:RIDEC;
+      elements[runIndex].style.color = works[runIndex].type=='run' ? RUNC:RIDEC;
     }
     setRunIndex(elementIndex);
   };
@@ -26,18 +26,18 @@ const RunRow = ({ runs, run, locateActivity, runIndex, setRunIndex }) => {
   return (
     <tr
       className={styles.runRow}
-      key={run.start_date_local}
+      key={work.start_date_local}
       onClick={(e) => {
-        handleClick(e, runs, run);
-        locateActivity(run);
+        handleClick(e, works, work);
+        locateActivity(work);
       }}
-      style={run.type=='run' ? {color: RUNC}:{color: RIDEC}}
+      style={work.type=='run' ? {color: RUNC}:{color: RIDEC}}
     >
-      <td>{titleForRun(run)}</td>
+      <td>{titleForRun(work)}</td>
       <td>{distance}</td>
       {pace && <td>{paceParts}</td>}
       <td>{heartRate && heartRate.toFixed(0)}</td>
-      <td className={styles.runDate}>{run.start_date_local}</td>
+      <td className={styles.runDate}>{work.start_date_local}</td>
     </tr>
   );
 };

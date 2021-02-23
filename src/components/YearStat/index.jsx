@@ -5,6 +5,39 @@ import { formatPace } from 'src/utils/utils';
 import useActivities from 'src/hooks/useActivities';
 import styles from './style.module.scss';
 
+function get_avg_pace(works) {
+  let sumDistance = 0;
+  let streak = 0;
+  let pace = 0;
+  let paceNullCount = 0;
+  let heartRate = 0;
+  let heartRateNullCount = 0;
+  works.forEach((work) => {
+    sumDistance += work.distance || 0;
+    if (work.average_speed) {
+      pace += work.average_speed;
+    } else {
+      paceNullCount++;
+    }
+    if (work.average_heartrate) {
+      heartRate += work.average_heartrate;
+    } else {
+      heartRateNullCount++;
+    }
+    if (work.streak) {
+      streak = Math.max(streak, work.streak);
+    }
+  });
+  return {
+    'sum': sumDistance,
+    'streak': streak,
+    'pace': pace,
+    'paceNullCount': paceNullCount,
+    'heartRate': heartRate,
+    'heartRateNullCount': heartRateNullCount
+  }
+}
+
 const YearStat = ({ year, onClick }) => {
   let { activities: runs, activities: rides, years } = useActivities();
   // for hover
@@ -25,36 +58,33 @@ const YearStat = ({ year, onClick }) => {
 
   let sumDistance = 0;
   let streak = 0;
-  let pace = 0;
-  let paceNullCount = 0;
-  let heartRate = 0;
-  let heartRateNullCount = 0;
-  runs.forEach((run) => {
-    sumDistance += run.distance || 0;
-    if (run.average_speed) {
-      pace += run.average_speed;
-    } else {
-      paceNullCount++;
-    }
-    if (run.average_heartrate) {
-      heartRate += run.average_heartrate;
-    } else {
-      heartRateNullCount++;
-    }
-    if (run.streak) {
-      streak = Math.max(streak, run.streak);
-    }
-  });
-  rides.forEach((ride) => {
-    sumDistance += ride.distance || 0;
-  });
+  let run_pace = 0;
+  let ride_pace = 0;
+  let run_paceNullCount = 0;
+  let ride_paceNullCount = 0;
+  let run_heartRate = 0;
+  let run_heartRateNullCount = 0;
 
+  let info = get_avg_pace(runs);
+  sumDistance += info['sum'];
+  streak = Math.max(streak, info['streak']);
+  run_pace = info['pace']
+  run_paceNullCount = info['paceNullCount']
+  run_heartRate = info['heartRate']
+  run_heartRateNullCount = info['heartRateNullCount']
+
+  info = get_avg_pace(rides)
+  sumDistance += info['sum'];
+  streak = Math.max(streak, info['streak']);
+  ride_pace = info['pace']
+  ride_paceNullCount = info['paceNullCount']
+  
   sumDistance = (sumDistance / 1000.0).toFixed(1);
-  const avgPace = formatPace(pace / (runs.length - paceNullCount));
-  const hasHeartRate = !(heartRate === 0);
-  const avgHeartRate = (heartRate / (runs.length - heartRateNullCount)).toFixed(
-    0
-  );
+  const run_avgPace = formatPace(run_pace / (runs.length - run_paceNullCount));
+  const ride_avgPace = formatPace(ride_pace / (rides.length - ride_paceNullCount));
+  const hasHeartRate = !(run_heartRate === 0);
+  const avgHeartRate = (run_heartRate / (runs.length - run_heartRateNullCount)).toFixed(0);
+
   return (
     <div
       style={{ cursor: 'pointer' }}
@@ -64,9 +94,10 @@ const YearStat = ({ year, onClick }) => {
       <section>
         <Stat value={year} description=" Journey" />
         <Stat value={runs.length} description=" Runs" />
+        <Stat value={run_avgPace} description=" Avg Pace" />
         <Stat value={rides.length} description=" Rides" />
-        <Stat value={sumDistance} description=" KM" />
-        <Stat value={avgPace} description=" Avg Pace" />
+        <Stat value={ride_avgPace} description=" Avg Pace" />
+        <Stat value={sumDistance} description=" KM" />        
         <Stat
           value={`${streak} day`}
           description=" Streak"
