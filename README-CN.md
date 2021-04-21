@@ -1,7 +1,7 @@
 ![running_page](https://socialify.git.ci/yihong0618/running_page/image?description=1&font=Inter&forks=1&issues=1&language=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2Fshaonianche%2Fgallery%2Fmaster%2Frunning_page%2Frunning_page_logo_150*150.jpg&owner=1&pulls=1&stargazers=1&theme=Light)
 
 # [打造个人跑步主页](https://yihong.run/running) 
-简体中文 | [English](README-EN.md)
+[English](README-EN.md) | 简体中文
 
 <details>
 <summary>GIF 展示</summary>
@@ -25,11 +25,18 @@
 | [mq](https://github.com/MQ-0707) | https://running-iota.vercel.app | Keep |
 | [zhaohongxuan](https://github.com/zhaohongxuan) | https://running-page-psi.vercel.app | Keep |
 | [yvetterowe](https://github.com/yvetterowe) | https://run.haoluo.io | Strava |
-| [love-exercise](https://github.com/KaiOrange) | https://run.kai666666.top/ | Keep |
+| [love-exercise](https://github.com/KaiOrange) | https://run.kai666666.top | Keep |
 | [zstone12](https://github.com/zstone12) | https://running-page.zstone12.vercel.app | Keep |
-| [Lax](https://github.com/Lax) | https://lax.github.io/running/ | Keep |
+| [Lax](https://github.com/Lax) | https://lax.github.io/running | Keep |
 | [lusuzi](https://github.com/lusuzi) | https://running.lusuzi.vercel.app | Nike |
 | [wh1994](https://github.com/wh1994) | https://run4life.fun | Garmin |
+| [liuyihui](https://github.com/YiHui-Liu) | https://run.foolishfox.cn | Keep |
+| [FrankSun](https://github.com/hi-franksun) | https://hi-franksun.github.io/running_page | Nike |
+| [AhianZhang](https://github.com/AhianZhang) | https://running.ahianzhang.com | Keep |
+| [L1cardo](https://github.com/L1cardo) | https://run.licardo.cn | Nike |
+| [luckylele666](https://github.com/luckylele666) | https://0000928.xyz | Strava |
+| [MFYDev](https://github.com/MFYDev) | https://mfydev.run | Nike |
+
 ## 它是怎么工作的
 
 ![image](https://user-images.githubusercontent.com/15976103/105784027-e1ad9900-5fb2-11eb-9479-372be21482f1.png)
@@ -55,7 +62,6 @@
 ## 支持
 - **[Strava](#strava)**
 - **[Nike Run Club](#nike-run-club)**
-- **[Runtastic(Adidas Run)](#runtasticadidas-run)**
 - **[Garmin](#Garmin)**
 - **[Garmin-cn](#garmin-cn-大陆用户请用这个)**
 - **[Keep](#Keep)**
@@ -118,7 +124,7 @@ siteMetadata: {
 },
 ```
 
-## 下载您的 Runtastic(Adidas Run)/Nike Run Club/Strava/Garmin/Garmin-cn/Keep 数据, [别忘了在 `total` 页面生成可视化 SVG](#Total-Data-Analysis).
+## 下载您的 Nike Run Club/Strava/Garmin/Garmin-cn/Keep 数据, [别忘了在 `total` 页面生成可视化 SVG](#Total-Data-Analysis).
 
 ### GPX
 
@@ -275,20 +281,6 @@ python3(python) scripts/garmin_sync.py example@gmail.com example --is-cn
 ```
 </details>
 
-### Runtastic(Adidas Run)
-
-<details>
-<summary>获取您的 Runtastic(Adidas Run) 数据</summary>
-
-```python
-python3(python) scripts/runtastic_sync.py ${your email} ${your password}
-```
-示例：
-```python
-python3(python) scripts/runtastic_sync.py example@gmail.com example
-```
-</details>
-
 ### Nike Run Club
 
 <details>
@@ -419,7 +411,7 @@ https://github.com/flopp/GpxTrackPoster
 ## server(recommend vercel)
 
 <details>
-<summary>使用 vercel 部署</summary>
+<summary>使用 Vercel 部署</summary>
 
 1. vercel 连接你的 GitHub repo
 
@@ -431,6 +423,24 @@ https://github.com/flopp/GpxTrackPoster
 
 2. 等待部署完毕
 3. 访问
+</details>
+
+<details>
+<summary> 使用 Cloudflare 部署 </summary>
+<br>
+
+1. 在 `Pages` 中点击 `Create a project` 以连接到你的仓库
+
+2. 点击 `Begin setup` 后，修改项目的 `Build settings`。
+
+3. 在 `Framework preset` 中选择 `Gatsby` 框架。
+
+4. 向下滚动，点击 `Environment variables` 修改变量如下：
+
+   > Variable name = `PYTHON_VERSION`, Value = `3.7`
+
+5. 点击 `Save and Deploy`，完成部署。
+
 </details>
 
 <details>
@@ -492,3 +502,6 @@ Actions [源码](https://github.com/yihong0618/running_page/blob/master/.github/
 - @[shaonianche](https://github.com/shaonianche) icon 设计及文档
 - @[geekplux](https://github.com/geekplux) 帮助及鼓励, 重构了前端代码，学到了不少~
 - @[ben-29](https://github.com/ben-29) 搞定了咕咚，和我一起搞定了悦跑圈，太厉害了。
+
+# 赞赏
+谢谢就够了

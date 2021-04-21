@@ -16,11 +16,8 @@ import hmac
 import base64
 import urllib.parse
 
-from config import GPX_FOLDER, JSON_FILE, SQL_FILE
+from config import GPX_FOLDER, JSON_FILE, SQL_FILE, start_point, run_map
 from generator import Generator
-
-start_point = namedtuple("start_point", "lat lon")
-run_map = namedtuple("polyline", "summary_polyline")
 
 # device info
 user_agent = "CodoonSport(8.9.0 1170;Android 7;Sony XZ1)"
@@ -220,17 +217,41 @@ class Codoon:
             points = []
         return points
 
+<<<<<<< HEAD
     def parse_points_to_gpx(self, run_points_data, start_time, end_time, interval=5):
         # TODO for now kind of same as `keep` maybe refactor later
         points_dict_list = []
         i = 0
         start_timestamp = self._gt(start_time).timestamp()
         end_timestamp = self._gt(end_time).timestamp()
+=======
+    def parse_points_to_gpx(self, run_points_data):
+        def to_date(ts):
+            # TODO use https://docs.python.org/3/library/datetime.html#datetime.datetime.fromisoformat
+            # once we decide to move on to python v3.7+
+            ts_fmts = ["%Y-%m-%dT%H:%M:%S", "%Y-%m-%dT%H:%M:%S.%f"]
+
+            for ts_fmt in ts_fmts:
+                try:
+                    # performance with using exceptions
+                    # shouldn't be an issue since it's an offline cmdline tool
+                    return datetime.strptime(ts, ts_fmt)
+                except ValueError:
+                    pass
+
+            raise ValueError(
+                f"cannot parse timestamp {ts} into date with fmts: {ts_fmts}"
+            )
+
+        # TODO for now kind of same as `keep` maybe refactor later
+        points_dict_list = []
+>>>>>>> d71eee6d0dbf43123f797e9d1dc0973efd410af3
         for point in run_points_data[:-1]:
             points_dict = {
                 "latitude": point["latitude"],
                 "longitude": point["longitude"],
                 "elevation": point["elevation"],
+<<<<<<< HEAD
                 "time": datetime.utcfromtimestamp(start_timestamp + interval * i),
             }
             i += 1
@@ -243,6 +264,11 @@ class Codoon:
                 "time": datetime.utcfromtimestamp(end_timestamp),
             }
         )
+=======
+                "time": to_date(point["time_stamp"]),
+            }
+            points_dict_list.append(points_dict)
+>>>>>>> d71eee6d0dbf43123f797e9d1dc0973efd410af3
         gpx = gpxpy.gpx.GPX()
         gpx.nsmap["gpxtpx"] = "http://www.garmin.com/xmlschemas/TrackPointExtension/v1"
         gpx_track = gpxpy.gpx.GPXTrack()
@@ -255,7 +281,10 @@ class Codoon:
         for p in points_dict_list:
             point = gpxpy.gpx.GPXTrackPoint(**p)
             gpx_segment.points.append(point)
+<<<<<<< HEAD
 
+=======
+>>>>>>> d71eee6d0dbf43123f797e9d1dc0973efd410af3
         return gpx.to_xml()
 
     def get_single_run_record(self, route_id):
@@ -293,9 +322,13 @@ class Codoon:
         if with_gpx:
             # pass the track no points
             if str(log_id) not in old_gpx_ids and run_points_data:
+<<<<<<< HEAD
                 gpx_data = self.parse_points_to_gpx(
                     run_points_data, start_time, end_time
                 )
+=======
+                gpx_data = self.parse_points_to_gpx(run_points_data)
+>>>>>>> d71eee6d0dbf43123f797e9d1dc0973efd410af3
                 download_codoon_gpx(gpx_data, str(log_id))
         heart_rate = None
 

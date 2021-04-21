@@ -1,16 +1,23 @@
-![running_page](https://socialify.git.ci/yihong0618/running_page/image?description=1&font=Inter&forks=1&issues=1&language=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2Fshaonianche%2Fgallery%2Fmaster%2Frunning_page%2Frunning_page_logo_150*150.jpg&owner=1&pulls=1&stargazers=1&theme=Light)
+<p align="center">
+  <img width="150" src="https://raw.githubusercontent.com/shaonianche/gallery/master/running_page/running_page_logo.png" />
+</p>
 
 
-# [Create a personal running home page](https://yihong.run/running)
+<h3 align="center">
+  <a href="https://yihong.run/running"> Create a personal running home page </a>
+</h3>
 
-[简体中文](https://github.com/yihong0618/running_page/blob/master/README-CN.md) | English
+<p align="center">
+  <a href="https://github.com/yihong0618/running_page/actions"><img src="https://github.com/yihong0618/running_page/actions/workflows/run_data_sync.yml/badge.svg" alt="Github Action"></a>
+  <a href="https://t.me/running_page"><img src="https://badgen.net/badge/icon/join?icon=telegram&amp;label=usergroup" alt="Chat on telegram"></a>
+</p>
 
-<details>
-<summary>GIF SHOW</summary>
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/15976103/98808834-c02f1d80-2457-11eb-9a7c-70e91faa5e30.gif" alt="demo" width="800">
+</p>
 
-![running_page](https://user-images.githubusercontent.com/15976103/98808834-c02f1d80-2457-11eb-9a7c-70e91faa5e30.gif)
 
-</details>
+English | [简体中文](https://github.com/yihong0618/running_page/blob/master/README-CN.md)
 
 ## [Runner's Page Show](https://github.com/yihong0618/running_page/issues/12)
 
@@ -28,10 +35,16 @@
 | [zhaohongxuan](https://github.com/zhaohongxuan) | https://running-page-psi.vercel.app | Keep |
 | [yvetterowe](https://github.com/yvetterowe) | https://run.haoluo.io | Strava |
 | [love-exercise](https://github.com/KaiOrange) | https://run.kai666666.top | Keep |
-| [zstone12](https://github.com/zstone12) | https://running-page.zstone12.vercel.app/ | Keep |
-| [Lax](https://github.com/Lax) | https://lax.github.io/running/ | Keep |
+| [zstone12](https://github.com/zstone12) | https://running-page.zstone12.vercel.app | Keep |
+| [Lax](https://github.com/Lax) | https://lax.github.io/running | Keep |
 | [lusuzi](https://github.com/lusuzi) | https://running.lusuzi.vercel.app | Nike |
 | [wh1994](https://github.com/wh1994) | https://run4life.fun | Garmin |
+| [liuyihui](https://github.com/YiHui-Liu) | https://run.foolishfox.cn | Keep |
+| [FrankSun](https://github.com/hi-franksun) | https://hi-franksun.github.io/running_page | Nike |
+| [AhianZhang](https://github.com/AhianZhang) | https://running.ahianzhang.com | Keep |
+| [L1cardo](https://github.com/L1cardo) | https://run.licardo.cn | Nike |
+| [luckylele666](https://github.com/luckylele666) | https://0000928.xyz | Strava |
+| [MFYDev](https://github.com/MFYDev) | https://mfydev.run | Nike |
 
 ## How it works
 
@@ -53,7 +66,6 @@
 
 - **[Garmin](#garmin)**
 - **[Garmin-CN](#garmin-cnchina)**
-- **[Runtastic(Adidas Run)](#runtasticadidas-run)**
 - **[Nike Run Club](#nike-run-club)**
 - **[Strava](#strava)**
 - **[GPX](#GPX)**
@@ -156,27 +168,13 @@ python3(python) scripts/garmin_sync.py example@gmail.com example
 ```python
 python3(python) scripts/garmin_sync.py ${your email} ${your password} --is-cn
 ```
+
 example：
+
 ```python
 python3(python) scripts/garmin_sync.py example@gmail.com example --is-cn
 ```
-</details>
 
-### Runtastic(Adidas Run)
-
-<details>
-<summary>Get your <code>Runtastic</code> data</summary>
-
-<br>
-
-```python
-python3(python) scripts/runtastic_sync.py ${your email} ${your password}
-```
-example：
-
-```python
-python3(python) scripts/runtastic_sync.py example@gmail.com example
-```
 </details>
 
 ### Nike Run Club
@@ -195,13 +193,17 @@ Get Nike's `refresh_token`
 ![image](https://user-images.githubusercontent.com/15976103/94448123-23812b00-01dd-11eb-8143-4b0839c31d90.png)
 
 3. Execute in the root directory:
+
 ```python
 python3(python) scripts/nike_sync.py ${nike refresh_token}
 ```
+
 example：
+
 ```python
 python3(python) scripts/nike_sync.py eyJhbGciThiMTItNGIw******
 ```
+
 ![example img](https://raw.githubusercontent.com/shaonianche/gallery/master/running_page/nike_sync_%20example.png)
 
 </details>
@@ -322,7 +324,7 @@ https://github.com/flopp/GpxTrackPoster
 ## server(recommendation vercel)
 
 <details>
-<summary> Use <code>vercel</code> deploy </summary>
+<summary> Use <code>Vercel</code> to deploy </summary>
 <br>
 
 1. vercel connects to your GitHub repo.
@@ -338,6 +340,24 @@ https://github.com/flopp/GpxTrackPoster
 
 2. Awaiting completion of deployment
 3. Visits
+
+</details>
+
+<details>
+<summary> Use <code>Cloudflare</code> to deploy </summary>
+<br>
+
+1. Click `Create a project` in `Pages` to connect to your Repo.
+
+2. After clicking `Begin setup`, modify Project's `Build settings`.
+
+3. Select `Framework preset` to `Gatsby`
+
+4. Scroll down, click `Environment variables`, then variable below:
+
+   > Variable name = `PYTHON_VERSION`, Value = `3.7`
+
+5. Click `Save and Deploy`
 
 </details>
 
@@ -408,3 +428,6 @@ Before submitting PR:
 - @[flopp](https://github.com/flopp) great repo [GpxTrackPoster](https://github.com/flopp/GpxTrackPoster)
 - @[shaonianche](https://github.com/shaonianche) icon design and doc
 - @[geekplux](https://github.com/geekplux) Friendly help and encouragement, refactored the whole front-end code, learned a lot~
+
+# Support
+Thanks is enough.
