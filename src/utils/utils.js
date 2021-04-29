@@ -1,9 +1,8 @@
 import * as mapboxPolyline from '@mapbox/polyline';
 import { WebMercatorViewport } from 'react-map-gl';
 import { chinaGeojson } from '../static/run_countries';
-import { MUNICIPALITY_CITIES_ARR, RIDEC, RIDE_TITLES, RUN_TITLES } from './const';
+import { MUNICIPALITY_CITIES_ARR, RUNC, RIDEC, RIDE_TITLES, RUN_TITLES } from './const';
 import gcoord from 'gcoord';
-import { NULL } from 'node-sass';
 
 const titleForShow = (run) => {
   const date = run.start_date_local.slice(0, 11);
