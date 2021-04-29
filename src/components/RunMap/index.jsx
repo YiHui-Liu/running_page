@@ -4,7 +4,8 @@ import ReactMapGL, { Source, Layer } from 'react-map-gl';
 import {
   MAPBOX_TOKEN,
   IS_CHINESE,
-  MAIN_COLOR,
+  RUNC,
+  RIDEC,
   PROVINCE_FILL_COLOR,
 } from 'src/utils/const';
 import {geoJsonForMap} from 'src/utils/utils'
@@ -59,7 +60,6 @@ const RunMap = ({
     [startLon, startLat] = points[0];
     [endLon, endLat] = points[points.length - 1];
   }
-
   return (
     <ReactMapGL
       {...viewport}
@@ -82,7 +82,7 @@ const RunMap = ({
           id="works"
           type="line"
           paint={{
-            'line-color': title.indexOf('run')!=-1 ? MAIN_COLOR:'rgb(0,255,0)',
+            'line-color': ['get', 'color'],
             'line-width': isBigMap ? 1 : 2,
           }}
           layout={{

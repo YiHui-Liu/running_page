@@ -1,8 +1,9 @@
 import * as mapboxPolyline from '@mapbox/polyline';
 import { WebMercatorViewport } from 'react-map-gl';
 import { chinaGeojson } from '../static/run_countries';
-import { MUNICIPALITY_CITIES_ARR, RIDE_TITLES, RUN_TITLES } from './const';
+import { MUNICIPALITY_CITIES_ARR, RIDEC, RIDE_TITLES, RUN_TITLES } from './const';
 import gcoord from 'gcoord';
+import { NULL } from 'node-sass';
 
 const titleForShow = (run) => {
   const date = run.start_date_local.slice(0, 11);
@@ -14,7 +15,7 @@ const titleForShow = (run) => {
   if (run.name) {
     name = run.name;
   }
-  return `${name} ${date} ${distance} KM ${!run.summary_polyline ? '(No map data for this run)' : ''}`;
+  return `${name} ${date} ${distance} KM ${!run.summary_polyline ? '(No map data for this work)' : ''}`;
 };
 
 const formatPace = (d) => {
@@ -90,9 +91,15 @@ const geoJsonForRuns = (runs) => ({
     if (!points) {
       return null;
     }
-
+    var Pcolor = RIDEC;
+    if (run.type === 'run')   Pcolor = RUNC;
+    
     return {
       type: 'Feature',
+      properties: {
+          color: Pcolor,
+      },
+      // https://blog.csdn.net/qq_33460928/article/details/100543498
       geometry: {
         type: 'LineString',
         coordinates: points,
