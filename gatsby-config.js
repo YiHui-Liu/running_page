@@ -1,9 +1,20 @@
 module.exports = {
   pathPrefix: `/`, // Change to `/running_page` when running on github pages
   siteMetadata: {
-    title: "Running page",
-    siteUrl: "https://run.foolishfox.cn/",
-    description: "Personal site and blog",
+    siteTitle: 'Running Page',
+    siteUrl: 'https://run.foolishfox.cn/',
+    logo: 'https://asset.foolishfox.cn/images/static/avatar.jpg',
+    description: 'Personal site and blog',
+    navLinks: [
+      {
+        name: 'Blog',
+        url: 'https://foolishfox.cn/',
+      },
+      {
+        name: 'About',
+        url: 'https://foolishfox.cn/s/about/',
+      },
+    ],
   },
   plugins: [
     'gatsby-transformer-json',
@@ -11,6 +22,12 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         path: './src/static/',
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: './src/images/',
       },
     },
     {
@@ -49,6 +66,18 @@ module.exports = {
         rule: {
           include: /assets/,
         },
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        name: 'gatsby-starter-default',
+        short_name: 'starter',
+        start_url: '/',
+        background_color: '#e1e1e1',
+        theme_color: '#e1e1e1',
+        display: 'minimal-ui',
+        icon: 'src/images/favicon.png', // This path is relative to the root of the site.
       },
     },
     'gatsby-transformer-sharp',
