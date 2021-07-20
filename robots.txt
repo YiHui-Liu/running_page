@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://run.foolishfox.cn/sitemap.xml
+Sitemap: https://run.foolishfox.cn/sitemap/sitemap-index.xml
 Host: https://run.foolishfox.cn
